@@ -1,13 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-#include "Engine/World.h"
-#include "Camera/PlayerCameraManager.h"
-#include "Public/Tank.h"
+
+
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
 
+//forward declaration
+class ATank;
 /**
  *  Created on lecture 128
  */

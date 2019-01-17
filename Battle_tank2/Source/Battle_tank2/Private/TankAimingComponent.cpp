@@ -1,5 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "TankAimingComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "TankBarrel.h"
 
 
@@ -41,7 +42,8 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 	if (UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed,false,0,0,ESuggestProjVelocityTraceOption::DoNotTrace)) {
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		//MoveBarrelToward();
+		
+		MoveBarrelToward(AimDirection);
 		//UE_LOG(LogTemp, Warning, TEXT("%s is aiming at: %s"), *GetOwner()->GetName() ,*AimDirection.ToString());
 	}
 	
@@ -60,7 +62,7 @@ void UTankAimingComponent::MoveBarrelToward(FVector AimDirection)
 	auto AimAsRotator = AimDirection.Rotation();
 	auto deltaRotator = AimAsRotator - BarrelRotator;
 
-	Barrel->Elevate(5);
+	Barrel->Elevate(deltaRotator.Pitch);
 	//move the barrel certain amount this frame
 
 }
