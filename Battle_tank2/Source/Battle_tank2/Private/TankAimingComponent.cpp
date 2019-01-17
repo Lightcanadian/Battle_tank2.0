@@ -2,7 +2,7 @@
 #include "TankAimingComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "TankBarrel.h"
-
+#include "TankTurret.h"
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -55,13 +55,19 @@ void UTankAimingComponent::SetBarrelReference(UTankBarrel * BerrelToSet)
 	Barrel = BerrelToSet;
 }
 
+void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)
+{
+	Turret = TurretToSet;
+}
+
 void UTankAimingComponent::MoveBarrelToward(FVector AimDirection)
 {
 	//Workout difference between current and aimdirection
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto deltaRotator = AimAsRotator - BarrelRotator;
-
+	UE_LOG(LogTemp, Warning, TEXT("totator: %s"), *deltaRotator.ToString());
+	Turret->Rotate(deltaRotator.Yaw);
 	Barrel->Elevate(deltaRotator.Pitch);
 	//move the barrel certain amount this frame
 
