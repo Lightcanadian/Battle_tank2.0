@@ -44,3 +44,8 @@ void ATank::AimAt(FVector HitLocation)
 	//UE_LOG(LogTemp, Warning, TEXT(" %s Hit location: %s"), *GetName(),*HitLocation.ToString());
 }
 
+void ATank::Fire()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Firing with tank"));
+}
+

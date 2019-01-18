@@ -40,6 +40,9 @@ public:
 	void AimAt(FVector HitLocation);
 
 	UPROPERTY(EditAnywhere, Category = Firing)
-	float LaunchSpeed = 1000000;
+	float LaunchSpeed = 4000;
+
+	UFUNCTION(BlueprintCallable, Category = Firing)
+	void Fire();
 
 };
