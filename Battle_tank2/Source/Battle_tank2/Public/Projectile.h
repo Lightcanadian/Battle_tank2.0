@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "Projectile.generated.h"
 
+class UProjectileMovementComponent;
+
 UCLASS()
 class BATTLE_TANK2_API AProjectile : public AActor
 {
@@ -22,5 +24,10 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	void LaunchProjectile(float speed);
+
+private:
+	UProjectileMovementComponent* ProjectileMovement = nullptr;
 
 };

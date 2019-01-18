@@ -9,6 +9,7 @@
 //forward declaration
 class UTankBarrel;
 class UTankTurret;
+class AProjectile;
 class UTankAimingComponent;
 
 UCLASS()
@@ -44,5 +45,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
+
+	UPROPERTY(EditAnywhere, Category = Setup)
+	TSubclassOf<AProjectile> ProjectileBlueprint; //Read https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/TSubclassOf
+
+	UTankBarrel* Barrel = nullptr;
 
 };
