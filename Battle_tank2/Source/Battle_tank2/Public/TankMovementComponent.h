@@ -6,12 +6,20 @@
 #include "GameFramework/NavMovementComponent.h"
 #include "TankMovementComponent.generated.h"
 
+class ATank;
 /**
  * 
  */
-UCLASS()
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class BATTLE_TANK2_API UTankMovementComponent : public UNavMovementComponent
 {
 	GENERATED_BODY()
-	
+
+public:
+	UFUNCTION(BlueprintCallable, Category= Input)
+	void IntendMovementForward(float Throw);
+
+protected:
+	/*UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = PlayerMusicSkill)
+	ATank* tank = nullptr;*/
 };
