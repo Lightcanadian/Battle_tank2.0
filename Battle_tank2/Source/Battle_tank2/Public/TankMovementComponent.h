@@ -7,8 +7,10 @@
 #include "TankMovementComponent.generated.h"
 
 class ATank;
+class UTankTrack;
+
 /**
- * 
+ * Respondable from driving the tank track
  */
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class BATTLE_TANK2_API UTankMovementComponent : public UNavMovementComponent
@@ -17,9 +19,19 @@ class BATTLE_TANK2_API UTankMovementComponent : public UNavMovementComponent
 
 public:
 	UFUNCTION(BlueprintCallable, Category= Input)
-	void IntendMovementForward(float Throw);
+	void IntendMovement(float Throw);
+
+	UFUNCTION(BlueprintCallable, Category = Input)
+	void IntendTurn(float Throw);
+
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void Initialise(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet);
 
 protected:
 	/*UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = PlayerMusicSkill)
 	ATank* tank = nullptr;*/
+
+private:
+	UTankTrack* LeftTrack = nullptr;
+	UTankTrack* RightTrack = nullptr;
 };
