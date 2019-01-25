@@ -21,4 +21,7 @@ public:
 	void BeginPlay() override;
 	void Tick(float DeltaTime) override;
 
+	//how close can the Ai can get
+private:
+	float AcceptanceRadius = 3000.0f;
 };
