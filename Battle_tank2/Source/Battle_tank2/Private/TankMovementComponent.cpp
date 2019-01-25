@@ -3,6 +3,7 @@
 #include "TankMovementComponent.h"
 #include "TankTrack.h"
 
+
 void UTankMovementComponent::IntendMovement(float Throw)
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Intend move forward throw: %f"), Throw);
@@ -29,6 +30,11 @@ void UTankMovementComponent::Initialise(UTankTrack * LeftTrackToSet, UTankTrack 
 void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, bool bForceMaxSpeed)
 {
 	auto TankName = GetOwner()->GetName();
-	auto MoveVelocityString = MoveVelocity.ToString();
-	UE_LOG(LogTemp, Warning, TEXT("%s vectoring to %s"), *TankName, *MoveVelocityString);
+	auto AiForwardIntention = MoveVelocity.GetSafeNormal();
+	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	float ForwardThrow = FVector::DotProduct(AiForwardIntention, TankForward);
+	//IntendMovement(ForwardThrow);
+	IntendTurn(FVector::CrossProduct(AiForwardIntention,TankForward).Z);
+
+	//UE_LOG(LogTemp, Warning, TEXT("%s vectoring to %f"), *TankName, test);
 }
