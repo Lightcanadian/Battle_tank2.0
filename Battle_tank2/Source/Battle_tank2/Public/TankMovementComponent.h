@@ -18,16 +18,16 @@ class BATTLE_TANK2_API UTankMovementComponent : public UNavMovementComponent
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintCallable, Category= Input)
-	void IntendMovement(float Throw);
+	UFUNCTION(BlueprintCallable, Category= "Input")
+	void IntendMovementForward(float Throw);
 
-	UFUNCTION(BlueprintCallable, Category = Input)
-	void IntendTurn(float Throw);
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	void IntendTurnLeft(float Throw);
 
-	UFUNCTION(BlueprintCallable, Category = Setup)
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialise(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet);
 
-	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
+	
 
 protected:
 	/*UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = PlayerMusicSkill)
@@ -36,4 +36,7 @@ protected:
 private:
 	UTankTrack* LeftTrack = nullptr;
 	UTankTrack* RightTrack = nullptr;
+
+	//call from the p[ath finding logic by the ai controller
+	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
 };

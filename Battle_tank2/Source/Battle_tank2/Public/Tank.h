@@ -25,7 +25,7 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
+	UPROPERTY(BlueprintReadWrite)
 	UTankAimingComponent * TankAimingComponent = nullptr;
 	//UPROPERTY(BlueprintReadWrite)
 	//UTankMovementComponent* TankMovementComponent = nullptr;

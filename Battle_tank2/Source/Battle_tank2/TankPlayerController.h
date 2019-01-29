@@ -21,13 +21,15 @@ public:
 	void BeginPlay() override;
 	void Tick(float DeltaTime) override;
 
-private:
-
+protected:
 	/**
 	* Return the controled tank that the user or the AI is using
 	*/
-	ATank* GetControlledTank() const;
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+		ATank* GetControlledTank() const;
 
+
+private:
 	void AimTowardCrosshair();
 
 	bool GetSightRayHitLocation(FVector &OutHitLocation) const;
