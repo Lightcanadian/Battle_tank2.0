@@ -23,10 +23,10 @@ public:
 	ATank();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-	UPROPERTY(BlueprintReadWrite)
-	UTankAimingComponent * TankAimingComponent = nullptr;
+	
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	void Initialise(UTankAimingComponent * AimingComponentToSet);
+	
 	//UPROPERTY(BlueprintReadWrite)
 	//UTankMovementComponent* TankMovementComponent = nullptr;
 
@@ -34,13 +34,7 @@ public:
 	
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetTurretReference(UTankTurret* TurretToSet);
-
+		
 	void AimAt(FVector HitLocation);
 
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
@@ -59,4 +53,9 @@ public:
 
 	double LastFireTime = 0;
 
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	UTankAimingComponent* GetAimingComponent() const;
+
+private:
+	UTankAimingComponent * TankAimingComponent = nullptr;
 };
