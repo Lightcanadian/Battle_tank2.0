@@ -3,7 +3,7 @@
 #include "Engine/World.h"
 #include "Camera/PlayerCameraManager.h"
 #include "Public/Tank.h"
-
+#include "TankAimingComponent.h"
 
 
 void ATankPlayerController::BeginPlay()
@@ -12,6 +12,14 @@ void ATankPlayerController::BeginPlay()
 	//UE_LOG(LogTemp, Warning, TEXT("Player controller begin play"));
 	
 	ATank* ControlledTank = GetControlledTank();
+	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	if (AimingComponent)
+	{
+		FoundAimingComponent(AimingComponent);
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("Player controller can't find aiming component"));
+	}
 	/*if (!ControlledTank) {
 		UE_LOG(LogTemp, Warning, TEXT("Player controller not Controlling a tank"));
 	}
