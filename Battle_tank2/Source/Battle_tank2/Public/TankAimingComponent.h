@@ -21,6 +21,7 @@ enum class EFiringState : uint8
 //forward declaration
 class UTankBarrel;
 class UTankTurret;
+class AProjectile;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLE_TANK2_API UTankAimingComponent : public UActorComponent
@@ -47,12 +48,23 @@ public:
 
 	void AimAt(FVector WorldSpace);
 
+	UFUNCTION(BlueprintCallable, Category = Firing)
+	void Fire();
+
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float ReloadTimeInSecond = 3;
+
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float LaunchSpeed = 4000;
+
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	TSubclassOf<AProjectile> ProjectileBlueprint; //Read https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/TSubclassOf
 		
 private:
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
+
+	double LastFireTime = 0;
 
 	void MoveBarrelToward(FVector AimDirection);
 };

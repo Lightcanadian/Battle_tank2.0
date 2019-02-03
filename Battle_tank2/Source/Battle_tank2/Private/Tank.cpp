@@ -2,8 +2,6 @@
 #include "Public/Tank.h"
 #include "Public/TankAimingComponent.h"
 #include "Engine/World.h"
-#include "Projectile.h"
-#include "TankBarrel.h"
 
 
 // Sets default values
@@ -22,18 +20,4 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();	
-}
-
-void ATank::Fire()
-{
-	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSecond;
-	if (!ensure(Barrel)) return;
-	
-	if (isReloaded) {
-		FRotator Rotation = FRotator(0);
-		auto projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketLocation(FName("Projectile")), Barrel->GetSocketRotation(FName("Projectile")));
-
-		projectile->LaunchProjectile(LaunchSpeed);
-		LastFireTime = FPlatformTime::Seconds();
-	}
 }
