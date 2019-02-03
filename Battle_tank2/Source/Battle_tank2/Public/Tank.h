@@ -10,7 +10,7 @@
 class UTankBarrel;
 class UTankTurret;
 class AProjectile;
-class UTankAimingComponent;
+//class UTankAimingComponent;
 //class UTankMovementComponent;
 
 UCLASS()
@@ -24,11 +24,6 @@ public:
 
 protected:
 	
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void Initialise(UTankAimingComponent * AimingComponentToSet);
-	
-	//UPROPERTY(BlueprintReadWrite)
-	//UTankMovementComponent* TankMovementComponent = nullptr;
 
 public:	
 	
@@ -36,8 +31,6 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 		
 	void BeginPlay() override;
-
-	void AimAt(FVector HitLocation);
 
 	//TODO remove once fire is moved into aiming component
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
@@ -54,11 +47,5 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float ReloadTimeInSecond = 3;
 
-	double LastFireTime = 0;
-
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	UTankAimingComponent* GetAimingComponent() const;
-
-private:
-	UTankAimingComponent * TankAimingComponent = nullptr;
+	double LastFireTime = 0;	
 };

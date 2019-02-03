@@ -23,12 +23,7 @@ public:
 	void Tick(float DeltaTime) override;
 
 protected:
-	/**
-	* Return the controled tank that the user or the AI is using
-	*/
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-		ATank* GetControlledTank() const;
-
+	
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 		void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 
@@ -50,5 +45,5 @@ private:
 	UPROPERTY(EditAnywhere)
 	float LineTraceRange = 1000000.0;
 
-
+	UTankAimingComponent* AimingComponent = nullptr;
 };

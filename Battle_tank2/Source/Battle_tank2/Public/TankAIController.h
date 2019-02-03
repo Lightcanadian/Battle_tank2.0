@@ -8,6 +8,7 @@
 #include "TankAIController.generated.h"
 
 class ATank;
+class UTankAimingComponent;
 /**
  * 
  */
@@ -24,4 +25,6 @@ public:
 	//how close can the Ai can get
 private:
 	float AcceptanceRadius = 3000.0f;
+
+	UTankAimingComponent* AimingComponent = nullptr;
 };

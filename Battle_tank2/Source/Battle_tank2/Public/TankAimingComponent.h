@@ -45,11 +45,10 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	void AimAt(FVector WorldSpace, float LaunchSpeed);
+	void AimAt(FVector WorldSpace);
 
-	//void SetBarrelReference(UTankBarrel* BerrelToSet);
-
-	//void SetTurretReference(UTankTurret* TurretToSet);
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float LaunchSpeed = 4000;
 		
 private:
 	UTankBarrel* Barrel = nullptr;
