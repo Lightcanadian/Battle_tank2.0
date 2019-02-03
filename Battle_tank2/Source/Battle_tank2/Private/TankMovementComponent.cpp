@@ -14,7 +14,6 @@ void UTankMovementComponent::Initialise(UTankTrack * LeftTrackToSet, UTankTrack 
 
 void UTankMovementComponent::IntendMovementForward(float Throw)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("Intend move forward throw: %f"), Throw);
 	//TODO prevent double speed
 	if (!ensure(LeftTrack && RightTrack)) return;
 	LeftTrack->SetThrottle(Throw);
@@ -36,6 +35,4 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 	float ForwardThrow = FVector::DotProduct(AiForwardIntention, TankForward);
 	IntendMovementForward(ForwardThrow);
 	IntendTurnLeft(FVector::CrossProduct(AiForwardIntention,TankForward).Z);
-
-	//UE_LOG(LogTemp, Warning, TEXT("%s vectoring to %f"), *TankName, test);
 }

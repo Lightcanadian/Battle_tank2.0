@@ -8,8 +8,7 @@
 
 void ATankPlayerController::BeginPlay()
 {
-	Super::BeginPlay();
-	//UE_LOG(LogTemp, Warning, TEXT("Player controller begin play"));
+	Super::BeginPlay();	
 	
 	ATank* ControlledTank = GetControlledTank();
 	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
@@ -20,13 +19,6 @@ void ATankPlayerController::BeginPlay()
 	else {
 		UE_LOG(LogTemp, Warning, TEXT("Player controller can't find aiming component"));
 	}
-	/*if (!ControlledTank) {
-		UE_LOG(LogTemp, Warning, TEXT("Player controller not Controlling a tank"));
-	}
-	else {
-		UE_LOG(LogTemp, Warning, TEXT("Controlling: %s"), *ControlledTank->GetName());
-	}*/
-	
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -70,7 +62,6 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &OutHitLocation) cons
 		
 		GetLookVectorHitLocation(OutHitLocation, LookDirection);
 		
-		//UE_LOG(LogTemp, Warning, TEXT("Can't get the camera direction"));
 		return true;
 	}
 	//linetrace
@@ -82,7 +73,6 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector &
 	FVector WorldLocation;
 	
 	if (!DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, WorldLocation, lookDirection)) {
-		UE_LOG(LogTemp, Warning, TEXT("Can't deproject"));
 		return false;
 	}
 	return true;

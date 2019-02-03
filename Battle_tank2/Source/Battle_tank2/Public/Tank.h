@@ -39,6 +39,7 @@ public:
 
 	void AimAt(FVector HitLocation);
 
+	//TODO remove once fire is moved into aiming component
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float LaunchSpeed = 4000;
 
@@ -51,7 +52,7 @@ public:
 	UTankBarrel* Barrel = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
-		float ReloadTimeInSecond = 3;
+	float ReloadTimeInSecond = 3;
 
 	double LastFireTime = 0;
 

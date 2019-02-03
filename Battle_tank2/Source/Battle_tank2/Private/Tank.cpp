@@ -29,13 +29,13 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 }
 
 
 void ATank::AimAt(FVector HitLocation)
 {
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
-	//UE_LOG(LogTemp, Warning, TEXT(" %s Hit location: %s"), *GetName(),*HitLocation.ToString());
 }
 
 void ATank::Fire()
