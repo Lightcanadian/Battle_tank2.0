@@ -11,7 +11,7 @@ class UTankBarrel;
 class UTankTurret;
 class AProjectile;
 class UTankAimingComponent;
-class UTankMovementComponent;
+//class UTankMovementComponent;
 
 UCLASS()
 class BATTLE_TANK2_API ATank : public APawn
