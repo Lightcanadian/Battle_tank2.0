@@ -36,12 +36,19 @@ void UTankAimingComponent::BeginPlay()
 void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	if ((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSecond)
+	
+	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSecond)
 	{
 		FiringState = EFiringState::Reloading;
 	}
-	
-	// ...
+	else if (IsBarrelMoving())
+	{
+		FiringState = EFiringState::Aiming;
+	}
+	else
+	{
+		FiringState = EFiringState::Lock;
+	}
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation)
@@ -52,7 +59,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	FVector StartLocation =  Barrel->GetSocketLocation(FName("Projectile"));
 
 	if (UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed,false,0,0,ESuggestProjVelocityTraceOption::DoNotTrace)) {
-		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		AimDirection = OutLaunchVelocity.GetSafeNormal();
 		
 		MoveBarrelToward(AimDirection);
 	}
@@ -62,7 +69,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 
 void UTankAimingComponent::Fire()
 {
-	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSecond;
+	//bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSecond;
 	if (!ensure(Barrel)) return;
 	if (!ensure(ProjectileBlueprint)) return;
 
@@ -72,7 +79,6 @@ void UTankAimingComponent::Fire()
 
 		projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
-		FiringState = EFiringState::Reloading;
 	}
 }
 
@@ -88,5 +94,11 @@ void UTankAimingComponent::MoveBarrelToward(FVector AimDirection)
 	Barrel->Elevate(deltaRotator.Pitch);
 	//move the barrel certain amount this frame
 
+}
+
+bool UTankAimingComponent::IsBarrelMoving()
+{
+	if (!ensure(Barrel)) return false;
+	return !AimDirection.Equals(Barrel->GetForwardVector(), 0.01);
 }
 
