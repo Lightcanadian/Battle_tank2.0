@@ -22,7 +22,7 @@ public:
 	void IntendMovementForward(float Throw);
 
 	UFUNCTION(BlueprintCallable, Category = "Input")
-	void IntendTurnLeft(float Throw);
+	void IntendTurnRight(float Throw);
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialise(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet);

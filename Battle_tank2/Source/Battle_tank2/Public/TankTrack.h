@@ -22,20 +22,20 @@ public:
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	void ApplySidewayForce();
-
 	UFUNCTION(BlueprintCallable, Category = Input)
-		void SetThrottle(float Throttle);
-
-	void DrivingTrack();
-
+	void SetThrottle(float Throttle);
+	
 	//Max force per track in newton  (Force = mass * acceleration)
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
-		float TrackMaxDrivingForce = 400000; //assum 40 tonnetank and 1g accelleration
+	float TrackMaxDrivingForce = 400000; //assum 40 tonnetank and 1g accelleration
 
 private:
 	UFUNCTION()
-		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+
+	void ApplySidewayForce();
+
+	void DrivingTrack();
 
 	float CurrentThottle = 0;
 };

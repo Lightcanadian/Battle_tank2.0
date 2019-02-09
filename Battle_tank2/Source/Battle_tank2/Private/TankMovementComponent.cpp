@@ -16,13 +16,15 @@ void UTankMovementComponent::IntendMovementForward(float Throw)
 {
 	//TODO prevent double speed
 	if (!ensure(LeftTrack && RightTrack)) return;
+	UE_LOG(LogTemp, Warning, TEXT("Move forward received: %f"), Throw);
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 }
 
-void UTankMovementComponent::IntendTurnLeft(float Throw)
+void UTankMovementComponent::IntendTurnRight(float Throw)
 {
 	if (!ensure(LeftTrack && RightTrack)) return;
+	UE_LOG(LogTemp, Warning, TEXT("Turn right received: %f"), Throw);
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
 }
@@ -34,5 +36,5 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
 	float ForwardThrow = FVector::DotProduct(AiForwardIntention, TankForward);
 	IntendMovementForward(ForwardThrow);
-	IntendTurnLeft(FVector::CrossProduct(AiForwardIntention,TankForward).Z);
+	IntendTurnRight(FVector::CrossProduct(AiForwardIntention,TankForward).Z);
 }
