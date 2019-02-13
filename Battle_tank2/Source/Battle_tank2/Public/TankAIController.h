@@ -24,7 +24,9 @@ public:
 
 	//how close can the Ai can get
 private:
-	float AcceptanceRadius = 3000.0f;
-
 	UTankAimingComponent* AimingComponent = nullptr;
+
+protected:
+	UPROPERTY(EditAnywhere, Category = "Setup")
+		float AcceptanceRadius = 8000.0f;
 };

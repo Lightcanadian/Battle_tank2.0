@@ -59,6 +59,8 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint; //Read https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/TSubclassOf
+
+	EFiringState GetFiringState() const;
 		
 private:
 	UTankBarrel* Barrel = nullptr;
