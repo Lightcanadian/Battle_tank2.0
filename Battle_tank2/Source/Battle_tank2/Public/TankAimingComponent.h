@@ -14,7 +14,8 @@ enum class EFiringState : uint8
 {
 	Reloading,
 	Aiming,
-	Lock
+	Lock,
+	OutOfAmmo
 };
 
 
@@ -42,11 +43,16 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringState FiringState = EFiringState::Lock;
 
+	int RoundLeft = 5;
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	void AimAt(FVector WorldSpace);
+
+	UFUNCTION(BlueprintCallable, Category = Firing)
+	int GetRoundLeft() const;
 
 	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
@@ -61,7 +67,7 @@ public:
 	TSubclassOf<AProjectile> ProjectileBlueprint; //Read https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/TSubclassOf
 
 	EFiringState GetFiringState() const;
-		
+
 private:
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
