@@ -70,7 +70,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	
 }
 
-int UTankAimingComponent::GetRoundLeft() const
+int32 UTankAimingComponent::GetRoundLeft() const
 {
 	return RoundLeft;
 }

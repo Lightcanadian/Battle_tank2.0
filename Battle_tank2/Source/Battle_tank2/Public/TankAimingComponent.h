@@ -43,8 +43,6 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringState FiringState = EFiringState::Lock;
 
-	int RoundLeft = 5;
-
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -52,7 +50,7 @@ public:
 	void AimAt(FVector WorldSpace);
 
 	UFUNCTION(BlueprintCallable, Category = Firing)
-	int GetRoundLeft() const;
+	int32 GetRoundLeft() const;
 
 	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
@@ -62,6 +60,9 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float LaunchSpeed = 4000;
+
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+		int32 RoundLeft = 5;
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint; //Read https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/TSubclassOf
