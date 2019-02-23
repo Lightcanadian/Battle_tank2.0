@@ -20,14 +20,18 @@ public:
 	// Sets default values for this pawn's properties
 	ATank();
 
-protected:
-	
-
-public:	
-	
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-		
+
 	void BeginPlay() override;
-			
+
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor * DamageCauser) override;
+
+	void ApplyDamage(float amount);
+
+protected:
+	
+private:
+	UPROPERTY(VisibleAnywhere, Category = Setup)
+		float Health = 100.f;
 };

@@ -21,3 +21,15 @@ void ATank::BeginPlay()
 {
 	Super::BeginPlay();	
 }
+
+float ATank::TakeDamage(float DamageAmount, FDamageEvent const & DamageEvent, AController * EventInstigator, AActor * DamageCauser)
+{
+	UE_LOG(LogTemp, Warning, TEXT("receiving damage: %f"), DamageAmount);
+	ApplyDamage(DamageAmount);
+	return 0.0f;
+}
+
+void ATank::ApplyDamage(float amount)
+{
+	Health -= amount;
+}
