@@ -24,12 +24,14 @@ void ATank::BeginPlay()
 
 float ATank::TakeDamage(float DamageAmount, FDamageEvent const & DamageEvent, AController * EventInstigator, AActor * DamageCauser)
 {
+	int32 DamagePoint = FMath::RoundToInt(DamageAmount);
+	auto DamageToApply = FMath::Clamp<int32>(DamagePoint, 0, CurrentHealth);
 	UE_LOG(LogTemp, Warning, TEXT("receiving damage: %f"), DamageAmount);
-	ApplyDamage(DamageAmount);
-	return 0.0f;
+	ApplyDamage(DamageToApply);
+	return DamageToApply;
 }
 
-void ATank::ApplyDamage(float amount)
+void ATank::ApplyDamage(int32 amount)
 {
-	Health -= amount;
+	CurrentHealth -= amount;
 }

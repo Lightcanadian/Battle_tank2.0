@@ -27,11 +27,14 @@ public:
 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor * DamageCauser) override;
 
-	void ApplyDamage(float amount);
+	void ApplyDamage(int32 amount);
 
 protected:
 	
 private:
-	UPROPERTY(VisibleAnywhere, Category = Setup)
-		float Health = 100.f;
+	UPROPERTY(EditDefaultsOnly, Category = "Health")
+		int32 Health = 100.f;
+
+	UPROPERTY(VisibleAnywhere, Category = "Health")
+		int32 CurrentHealth = Health;
 };
