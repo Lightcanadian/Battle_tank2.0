@@ -35,3 +35,8 @@ void ATank::ApplyDamage(int32 amount)
 {
 	CurrentHealth -= amount;
 }
+
+float ATank::GetHealthPercent() const
+{
+	return (float)CurrentHealth/(float)Health;
+}

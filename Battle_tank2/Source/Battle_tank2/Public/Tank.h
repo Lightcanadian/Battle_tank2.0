@@ -29,6 +29,10 @@ public:
 
 	void ApplyDamage(int32 amount);
 
+	//Retrun current heath as a percentage of starting health
+	UFUNCTION(BlueprintPure, Category = "Health")
+	float GetHealthPercent() const;
+
 protected:
 	
 private:
