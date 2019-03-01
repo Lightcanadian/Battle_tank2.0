@@ -1,5 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "TankPlayerController.h"
+#include "Tank.h"
 #include "Engine/World.h"
 #include "Camera/PlayerCameraManager.h"
 #include "TankAimingComponent.h"
@@ -30,6 +31,7 @@ void ATankPlayerController::AimTowardCrosshair()
 {
 	if (!ensure(AimingComponent)) { return; }
 	FVector HitLoacation; // out param
+	
 	if (GetSightRayHitLocation(HitLoacation)) {
 		AimingComponent->AimAt(HitLoacation);
 	}	
@@ -78,4 +80,23 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector & hitlocation, FVec
 		return true;
 	}
 	return false;
+}
+
+void ATankPlayerController::OnPosessedTankDeath()
+{
+	UE_LOG(LogTemp, Warning, TEXT("My tank is dead"));
+	//DetachFromPawn();
+	StartSpectatingOnly();
+}
+
+void ATankPlayerController::SetPawn(APawn * InPawn)
+{
+	Super::SetPawn(InPawn);
+	if (InPawn)
+	{
+		auto PosessessedTank = Cast<ATank>(InPawn);
+		if (!ensure(PosessessedTank)) { return; }
+		//subscribe to death event
+		PosessessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnPosessedTankDeath);
+	}
 }

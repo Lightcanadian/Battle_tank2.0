@@ -46,4 +46,9 @@ private:
 	float LineTraceRange = 1000000.0;
 
 	UTankAimingComponent* AimingComponent = nullptr;
+
+	UFUNCTION()
+	void OnPosessedTankDeath();
+
+	virtual void SetPawn(APawn* InPawn) override;
 };
