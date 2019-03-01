@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-
+//#include "Delegates/Delegate.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
@@ -10,6 +10,8 @@
 class UTankBarrel;
 class UTankTurret;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankDelegate);
+//DECLARE_DELEGATE_OneParam(MyTestDelecte);
 
 UCLASS()
 class BATTLE_TANK2_API ATank : public APawn
@@ -33,6 +35,8 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Health")
 	float GetHealthPercent() const;
 
+	FTankDelegate OnDeath;
+
 protected:
 	
 private:
@@ -40,5 +44,5 @@ private:
 		int32 Health = 100.f;
 
 	UPROPERTY(VisibleAnywhere, Category = "Health")
-		int32 CurrentHealth = Health;
+		int32 CurrentHealth = Health;	
 };
