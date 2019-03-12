@@ -95,12 +95,12 @@ EFiringState UTankAimingComponent::GetFiringState() const
 	return FiringState;
 }
 
-void UTankAimingComponent::MoveBarrelToward(FVector AimDirection)
+void UTankAimingComponent::MoveBarrelToward(FVector TargetAimDirection)
 {
 	if (!ensure(Barrel && Turret)) return;
 	//Workout difference between current and aimdirection
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
-	auto AimAsRotator = AimDirection.Rotation();
+	auto AimAsRotator = TargetAimDirection.Rotation();
 	auto deltaRotator = AimAsRotator - BarrelRotator;
 	
 	if (deltaRotator.Yaw < -180 || deltaRotator.Yaw > 180) {

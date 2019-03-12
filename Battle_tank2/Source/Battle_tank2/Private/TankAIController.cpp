@@ -37,7 +37,7 @@ void ATankAIController::SetPawn(APawn * InPawn)
 	if (InPawn)
 	{
 		auto PosessessedTank = Cast<ATank>(InPawn);
-		if (!ensure(PosessessedTank)) {	return;	}
+		if (!PosessessedTank) {	return;	}
 		//subscribe to death event
 		PosessessedTank->OnDeath.AddUniqueDynamic(this, &ATankAIController::OnPosessedTankDeath);
 	}
