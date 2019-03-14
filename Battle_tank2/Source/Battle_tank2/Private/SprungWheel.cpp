@@ -16,10 +16,13 @@ ASprungWheel::ASprungWheel()
 
 	Wheel = CreateDefaultSubobject<UStaticMeshComponent>(FName("Wheel"));
 	Wheel->SetSimulatePhysics(true);
-	Wheel->AttachToComponent(RootComponent,FAttachmentTransformRules::KeepWorldTransform);
+	//***New way to attach to root, can only be done in constructor***//
+	Wheel->SetupAttachment(RootComponent);
+	//Wheel->AttachToComponent(RootComponent,FAttachmentTransformRules::KeepWorldTransform);
 
 	Spring = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("Spring"));
-	Spring->AttachToComponent(Mass, FAttachmentTransformRules::KeepWorldTransform);
+	Spring->SetupAttachment(RootComponent);
+	//Spring->AttachToComponent(Mass, FAttachmentTransformRules::KeepWorldTransform);
 }
 
 // Called when the game starts or when spawned
