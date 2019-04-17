@@ -13,16 +13,17 @@ ASprungWheel::ASprungWheel()
 	
 	SetRootComponent(Spring);
 
-	Mass = CreateDefaultSubobject<UStaticMeshComponent>(FName("Mass"));
+	/*Mass = CreateDefaultSubobject<UStaticMeshComponent>(FName("Mass"));
 	Mass->SetSimulatePhysics(true);
-	Mass->SetupAttachment(RootComponent);
+	Mass->SetupAttachment(RootComponent);*/
 
 	Wheel = CreateDefaultSubobject<UStaticMeshComponent>(FName("Wheel"));
 	Wheel->SetSimulatePhysics(true);
 	//***New way to attach to root, can only be done in constructor***//
 	Wheel->SetupAttachment(RootComponent);
+
 	//Wheel->AttachToComponent(RootComponent,FAttachmentTransformRules::KeepWorldTransform);	
-	
+
 	
 }
 
@@ -30,13 +31,8 @@ ASprungWheel::ASprungWheel()
 void ASprungWheel::BeginPlay()
 {
 	Super::BeginPlay();
-	if (!GetAttachParentActor()) {
-		UE_LOG(LogTemp, Warning, TEXT("Attach parent in null"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Attach parent is %s"), *GetAttachParentActor()->GetName());
-	}
+	//Attach the tank body as the main constraint body
+	SetupConstraint();
 }
 
 // Called every frame
@@ -44,5 +40,13 @@ void ASprungWheel::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ASprungWheel::SetupConstraint()
+{
+	if (!GetAttachParentActor()) return;
+	UPrimitiveComponent* Body = Cast<UPrimitiveComponent>(GetAttachParentActor()->GetRootComponent());
+	if (!Body) return;
+	Spring->SetConstrainedComponents(Body, NAME_None, Cast<UPrimitiveComponent>(Wheel), NAME_None);
 }
 
