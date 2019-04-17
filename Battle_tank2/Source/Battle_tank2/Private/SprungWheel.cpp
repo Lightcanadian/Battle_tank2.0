@@ -3,24 +3,26 @@
 #include "SprungWheel.h"
 #include "PhysicsEngine/PhysicsConstraintComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/SphereComponent.h"
 
 // Sets default values
 ASprungWheel::ASprungWheel()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	Spring = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("Spring"));
-	
-	SetRootComponent(Spring);
+	MassWheelConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("Spring"));
+	SetRootComponent(MassWheelConstraint);
 
-	/*Mass = CreateDefaultSubobject<UStaticMeshComponent>(FName("Mass"));
-	Mass->SetSimulatePhysics(true);
-	Mass->SetupAttachment(RootComponent);*/
+	Axle = CreateDefaultSubobject<USphereComponent>(FName("Axel"));
+	Axle->SetupAttachment(RootComponent);
 
-	Wheel = CreateDefaultSubobject<UStaticMeshComponent>(FName("Wheel"));
+	AxleWheelConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("AxleWheelConstraint"));
+	AxleWheelConstraint->SetupAttachment(Axle);
+
+	Wheel = CreateDefaultSubobject<USphereComponent>(FName("Wheel"));
 	Wheel->SetSimulatePhysics(true);
 	//***New way to attach to root, can only be done in constructor***//
-	Wheel->SetupAttachment(RootComponent);
+	Wheel->SetupAttachment(Axle);
 
 	//Wheel->AttachToComponent(RootComponent,FAttachmentTransformRules::KeepWorldTransform);	
 
@@ -47,6 +49,7 @@ void ASprungWheel::SetupConstraint()
 	if (!GetAttachParentActor()) return;
 	UPrimitiveComponent* Body = Cast<UPrimitiveComponent>(GetAttachParentActor()->GetRootComponent());
 	if (!Body) return;
-	Spring->SetConstrainedComponents(Body, NAME_None, Cast<UPrimitiveComponent>(Wheel), NAME_None);
+	MassWheelConstraint->SetConstrainedComponents(Body, NAME_None, Axle, NAME_None);
+	AxleWheelConstraint->SetConstrainedComponents(Axle, NAME_None, Wheel, NAME_None);
 }
 
